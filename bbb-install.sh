@@ -33,6 +33,29 @@
 #    wget -qO- https://raw.githubusercontent.com/bigbluebutton/bbb-install/v2.7.x-release/bbb-install.sh | bash -s -- -w -v focal-270 -s bbb.example.com -e info@example.com -g
 #
 
+
+# Start - BASH script to install BigBlueButton with provisions to bypass Iran sanctions restrictions
+
+# Create backup of resolv.conf
+cp /etc/resolv.conf /etc/resolv.conf.bak
+
+# Remove resolv.conf
+rm /etc/resolv.conf
+
+# Create static resolv.conf
+sudo touch /etc/resolv.conf.static
+sudo chmod 644 /etc/resolv.conf.static
+sudo chown root:root /etc/resolv.conf.static
+
+# Create symlink to static resolv.conf
+sudo ln -s /etc/resolv.conf.static /etc/resolv.conf
+
+# Add nameserver entries to static resolv.conf
+echo "nameserver 178.22.122.100" >> /etc/resolv.conf.static
+echo "nameserver 185.51.200.2" >> /etc/resolv.conf.static
+
+# End - BASH script to install BigBlueButton with provisions to bypass Iran sanctions restrictions
+
 usage() {
     set +x
     cat 1>&2 <<HERE
